@@ -34,6 +34,12 @@
   margin-inline-end: auto;
 }
 
+.form-complete-step-instructions {
+  padding-inline-start: var(--space-m);
+  margin: 0;
+  list-style-type: disc;
+}
+
 .form-complete-actions {
   display: flex;
   gap: var(--space-m);

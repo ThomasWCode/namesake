@@ -13,7 +13,7 @@ export interface FormCompleteStepProps {
   slug: FormSlug;
   title: string;
   onRedownload: (e: React.SubmitEvent<HTMLFormElement>) => void | Promise<void>;
-  completionMessage?: string;
+  instructions: readonly string[];
   inline?: boolean;
   headingLevel?: 1 | 2 | 3;
 }
@@ -22,7 +22,7 @@ export function FormCompleteStep({
   slug,
   title,
   onRedownload,
-  completionMessage,
+  instructions,
   inline = false,
   headingLevel = 1,
 }: FormCompleteStepProps) {
@@ -66,7 +66,15 @@ export function FormCompleteStep({
         </p>
       </header>
       <div className="form-complete-step-content">
-        {completionMessage && <Banner>{completionMessage}</Banner>}
+        {instructions.length > 0 && (
+          <Banner>
+            <ul className="form-complete-step-instructions">
+              {instructions.map((instruction) => (
+                <li key={instruction}>{instruction}</li>
+              ))}
+            </ul>
+          </Banner>
+        )}
         <FormFeedback slug={slug} />
         <DeleteFormDataModal />
         <div className="form-complete-actions">

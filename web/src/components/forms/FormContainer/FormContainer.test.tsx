@@ -21,6 +21,9 @@ vi.mock("#lib/forms/getFormConfig");
 vi.mock("#lib/forms/getFormPdfMetadata", () => ({
   getFormPdfMetadata: vi.fn().mockResolvedValue([]),
 }));
+vi.mock("#lib/forms/createFormSubmitHandler", () => ({
+  createFormSubmitHandler: () => vi.fn().mockResolvedValue(undefined),
+}));
 
 import { getFormConfig } from "#lib/forms/getFormConfig";
 
@@ -143,6 +146,36 @@ describe("FormContainer", () => {
       expect(
         await screen.findByText("Review your information"),
       ).toBeInTheDocument();
+    });
+  });
+
+  describe("complete phase", () => {
+    it("renders the same resolved instructions used by the downloaded packet", async () => {
+      vi.mocked(getFormConfig).mockReturnValue({
+        ...plainConfig,
+        instructions: [
+          "Always shown",
+          { text: "Conditionally shown", when: () => true },
+          { text: "Conditionally hidden", when: () => false },
+        ],
+      });
+      const user = userEvent.setup();
+      render(<FormContainer slug="court-order-ma" />);
+
+      await user.click(await screen.findByRole("button", { name: "Start" }));
+      await user.click(screen.getByRole("button", { name: "Next step" }));
+      await user.click(
+        screen.getByRole("button", { name: "Finish and Download" }),
+      );
+
+      expect(
+        await screen.findByRole("heading", { name: "Form complete!" }),
+      ).toBeInTheDocument();
+      expect(screen.getByText("Always shown")).toBeInTheDocument();
+      expect(screen.getByText("Conditionally shown")).toBeInTheDocument();
+      expect(
+        screen.queryByText("Conditionally hidden"),
+      ).not.toBeInTheDocument();
     });
   });
 

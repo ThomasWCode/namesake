@@ -45,13 +45,11 @@ export default defineForm({
   ],
   pdfs: [{ pdfId: "lic100-drivers-license-learners-permit-or-id-card" }],
   downloadTitle: "Massachusetts State ID Application",
-  completionMessage:
-    "Remember to print, sign, and date your application. The application is not complete without your signature.",
   instructions: [
     "Review the application carefully and complete any fields Namesake left blank.",
     "Enter your Social Security number in section B7. For your privacy, Namesake never asks for it.",
     "If you do not have a Social Security number, complete section B8 and bring the required supporting documents.",
-    "Sign and date the application after printing it.",
+    "Remember to print, sign, and date your application. The application is not complete without your signature.",
     {
       text: "The person giving consent must sign section H4. If they are not a parent, they must also provide proof of their authority.",
       when: (data) => guardianConsentStep.when?.(data) === true,

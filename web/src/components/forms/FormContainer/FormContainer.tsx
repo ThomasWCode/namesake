@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FormProvider } from "react-hook-form";
-import type { FormSlug } from "#constants/forms";
+import { type FormSlug, resolveInstructions } from "#constants/forms";
 import { createFormSubmitHandler } from "#lib/forms/createFormSubmitHandler";
 import { getFormConfig } from "#lib/forms/getFormConfig";
 import {
@@ -170,7 +170,10 @@ export function FormContainer({
             title={title}
             slug={slug}
             onRedownload={onSubmit}
-            completionMessage={config.completionMessage}
+            instructions={resolveInstructions(
+              config.instructions,
+              form.getValues(),
+            )}
             inline={inline}
             headingLevel={inline ? 2 : 1}
           />
@@ -185,7 +188,8 @@ export function FormContainer({
     pdfs,
     title,
     description,
-    config.completionMessage,
+    config.instructions,
+    form,
     children,
     slug,
     totalSteps,

@@ -24,6 +24,7 @@ describe("FormCompleteStep", () => {
     title: "Massachusetts Court Order",
     slug: "court-order-ma",
     onRedownload: vi.fn(),
+    instructions: [],
   };
 
   describe("rendering", () => {
@@ -39,13 +40,18 @@ describe("FormCompleteStep", () => {
       expect(screen.getByText(/Massachusetts Court Order/)).toBeInTheDocument();
     });
 
-    it("renders a form-specific completion message", () => {
+    it("renders the packet instructions", () => {
       render(
         <FormCompleteStep
           {...defaultProps}
-          completionMessage="Remember to sign the application."
+          instructions={[
+            "Review the application.",
+            "Remember to sign the application.",
+          ]}
         />,
       );
+
+      expect(screen.getByText("Review the application.")).toBeInTheDocument();
       expect(
         screen.getByText("Remember to sign the application."),
       ).toBeInTheDocument();

@@ -76,10 +76,8 @@ export interface FormConfig {
   pdfs: readonly FormPdfConfig[];
   /** Title for the downloaded PDF package */
   downloadTitle: string;
-  /** Optional message shown after the form has downloaded */
-  completionMessage?: string;
   /**
-   * Instructions shown on the cover page of the downloaded packet.
+   * Instructions shown on the completion page and the downloaded packet cover page.
    * Plain string = always included.
    * Object form: `{ text, when }` = included only when `when` returns true.
    */
