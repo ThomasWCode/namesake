@@ -71,8 +71,8 @@ export interface PDFDefinition<TPdfFieldName extends string = string> {
    */
   resolver: PDFResolver<TPdfFieldName>;
 
-  /** Draw selected checkbox and radio values into page content before merging. */
-  drawFormControlValues?: boolean;
+  /** Replace font-based checkbox and radio appearances with portable vector marks. */
+  useVectorFormControlAppearances?: boolean;
 }
 
 export type PDFResolver<

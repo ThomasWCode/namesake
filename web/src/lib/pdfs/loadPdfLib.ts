@@ -3,10 +3,23 @@
  * @returns PDF library utilities
  */
 export async function loadPdfLib() {
-  const { PDF, StandardFonts } = await import("@libpdf/core");
+  const {
+    PDF,
+    PdfArray,
+    PdfDict,
+    PdfName,
+    PdfNumber,
+    PdfStream,
+    StandardFonts,
+  } = await import("@libpdf/core");
 
   return {
     PDF,
+    PdfArray,
+    PdfDict,
+    PdfName,
+    PdfNumber,
+    PdfStream,
     StandardFonts,
   };
 }
