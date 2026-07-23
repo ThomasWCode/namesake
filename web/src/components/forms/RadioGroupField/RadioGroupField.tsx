@@ -29,6 +29,7 @@ export function RadioGroupField({
   labelHidden,
   options,
   children,
+  defaultValue,
   includePreferNotToAnswer,
   ...props
 }: RadioGroupFieldProps) {
@@ -39,7 +40,7 @@ export function RadioGroupField({
       <Controller
         control={control}
         name={name}
-        defaultValue={[]}
+        defaultValue={defaultValue ?? null}
         render={({ field, fieldState: { invalid, error } }) => (
           <RadioGroup
             {...field}
