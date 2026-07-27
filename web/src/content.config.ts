@@ -9,6 +9,7 @@ import {
   JURISDICTIONS,
   type JurisdictionName,
 } from "./constants/jurisdictions";
+import { LANGUAGES } from "./constants/languages";
 import type { PDFDefinition } from "./constants/pdf";
 import { SERVICES } from "./constants/services";
 
@@ -53,6 +54,9 @@ const directory = defineCollection({
       services: z.array(
         z.enum(SERVICES.map((s) => s.value) as [string, ...string[]]),
       ),
+      languages: z
+        .array(z.enum(LANGUAGES.map((l) => l.value) as [string, ...string[]]))
+        .default(["english"]),
       officialPartner: z.boolean().default(false),
       email: z.email().optional(),
       phone: z
